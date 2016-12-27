@@ -10,8 +10,10 @@
 
 ## Install
 
-```
-npm i -S start-postcss
+```sh
+npm install --save-dev start-postcss
+# or
+yarn add --dev start-postcss
 ```
 
 ## Usage
@@ -29,18 +31,16 @@ import write from 'start-write';
 
 import autoprefixer from 'autoprefixer';
 
-export function build() {
-    return start(reporter())(
-        files('build/'),
-        clean(),
-        files('lib/**/*.less'),
-        read(),
-        less({ sourceMap: true }),
-        postcss([ autoprefixer ], { map: true }),
-        rename(file => file.replace(/\.less$/, '.css')),
-        write('build/')
-    );
-}
+export const build = () => start(reporter())(
+  files('build/'),
+  clean(),
+  files('lib/**/*.less'),
+  read(),
+  less({ sourceMap: true }),
+  postcss([ autoprefixer ], { map: true }),
+  rename(file => file.replace(/\.less$/, '.css')),
+  write('build/')
+);
 ```
 
 This task relies on `[{ path, data, map }]` input and provides the same, see [documentation](https://github.com/start-runner/start#readme) for details.
